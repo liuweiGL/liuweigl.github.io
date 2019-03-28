@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'XAIRGT0JPD',
+      apiKey: '493261f696cc63799e1a0af4f39ba161',
+      indexName: 'liuweigl.github.io',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入主题...","hits_empty":"对不起，没有相关文章...","hits_stats":"${hits} 条结果，耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="单调性 设函数 $ f(x) $ 的定义域为 $ D_f $，区间 $ I \subseteq D_f $，如果对于区间 $ I $ 上的任意两点 $ x_1, x_2 $，当 $ x_1 &amp;lt; x_2 $ 时 ： 恒有 $ f(x_1) \le f(x_2) $，则称函数 $ f(x) $ 在区间 $ I $ 上单调递增。 当不等式 $ f(x_1) &amp;lt; f(x_2) $ 成立，">
+<meta name="keywords" content="数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数的性质">
+<meta property="og:url" content="https://liuweigl.github.io/articles/math/function-nature/index.html">
+<meta property="og:site_name" content="刘炜的博客">
+<meta property="og:description" content="单调性 设函数 $ f(x) $ 的定义域为 $ D_f $，区间 $ I \subseteq D_f $，如果对于区间 $ I $ 上的任意两点 $ x_1, x_2 $，当 $ x_1 &amp;lt; x_2 $ 时 ： 恒有 $ f(x_1) \le f(x_2) $，则称函数 $ f(x) $ 在区间 $ I $ 上单调递增。 当不等式 $ f(x_1) &amp;lt; f(x_2) $ 成立，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-28T09:50:10.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数的性质">
+<meta name="twitter:description" content="单调性 设函数 $ f(x) $ 的定义域为 $ D_f $，区间 $ I \subseteq D_f $，如果对于区间 $ I $ 上的任意两点 $ x_1, x_2 $，当 $ x_1 &amp;lt; x_2 $ 时 ： 恒有 $ f(x_1) \le f(x_2) $，则称函数 $ f(x) $ 在区间 $ I $ 上单调递增。 当不等式 $ f(x_1) &amp;lt; f(x_2) $ 成立，">
+
+
+
+
+
+
+  <link rel="canonical" href="https://liuweigl.github.io/articles/math/function-nature/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>函数的性质 | 刘炜的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘炜的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuweigl.github.io/articles/math/function-nature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar-real.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘炜的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">函数的性质
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 17:16:28 / 修改时间：17:50:10" itemprop="dateCreated datePublished" datetime="2019-03-28T17:16:28+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="单调性">单调性</h2>
+<p>设函数 $ f(x) $ 的定义域为 $ D_f $，区间 $ I \subseteq D_f $，如果对于区间 $ I $ 上的任意两点 $ x_1, x_2 $，当 $ x_1 &lt; x_2 $ 时 ：</p>
+<p>恒有 $ f(x_1) \le f(x_2) $，则称函数 $ f(x) $ 在区间 $ I $ 上单调递增。</p>
+<p>当不等式 $ f(x_1) &lt; f(x_2) $ 成立，则 函数$ f(x) $ 在 $ I $ 上严格单调递增。</p>
+<p>相反的：</p>
+<p>当恒有 $ f(x_1) \ge f(x_2) $，称函数 $ f(x) $ 在区间 $ I $ 上单调递减。</p>
+<p>当不等式 $ f(x_1) &gt; f(x_2) $ 成立，称函数 $ f(x) $ 在区间 <span class="math inline">\(I\)</span> 上严格单调递减。</p>
+<h2 id="有界性">有界性</h2>
+<p>$ 存在函数：f(x) ，定义域：D_f ，区间：I \subseteq D_f，若： $</p>
+<p>$ \forall \ x \in I ，\exists \ K ，s.t. \ f(x) \le K ，称函数 f(x) 在 I 上是有上界的 。$</p>
+<p>$ \forall \ x \in I，\exists \ K，s.t. \ f(x) \ge K，称函数 f(x) 在 I 上是有下界的。$</p>
+<p>$ \forall \ x \in I，\exists \ K_1、K_2，s.t. \ K_1 \le f(x) \le K_2 ，称函数 f(x) 在 I 上是有界的。$</p>
+<p>$ \forall \ M \in R^+，\exists \ x \in I，s.t. \ |f(x)|&gt;M，称函数 f(x) 在 I 上 是无界的。$</p>
+<h2 id="奇偶性">奇偶性</h2>
+<p>设函数 $ f(x) $ 的定义域 $ D_f $ 关于原点对称，对于任意 $ x \in D_f $ :</p>
+<p>若 $ f(x) = f(-x) $，则 $ f(x) $ 为偶函数。</p>
+<p>若 $ f(x) = -f(-x) $，则 $ f(x) $ 为奇函数。</p>
+<blockquote>
+<p>只有当函数的定义域关于原点对称时，我们才能去判断函数的奇偶性。</p>
+</blockquote>
+<p>奇偶性判定方法：</p>
+<table>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>奇偶性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>奇函数 + 奇函数</td>
+<td>奇函数</td>
+</tr>
+<tr class="even">
+<td>偶函数+偶函数</td>
+<td>偶函数</td>
+</tr>
+<tr class="odd">
+<td>偶数个奇函数（偶函数）之积</td>
+<td>偶函数</td>
+</tr>
+<tr class="even">
+<td>奇数个奇函数之积</td>
+<td>奇函数</td>
+</tr>
+<tr class="odd">
+<td>1 个奇函数 * 1 个偶函数</td>
+<td>奇函数</td>
+</tr>
+<tr class="even">
+<td>f(x) + f(-x) = 0</td>
+<td>奇函数</td>
+</tr>
+<tr class="odd">
+<td>定义域不关于原点对称</td>
+<td>非奇非偶函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="周期性">周期性</h2>
+<p>函数：$ f(x) $</p>
+<p>定义域：$ D_f $</p>
+<p>定义：$ \exists \ T \in R^+，s.t. \ f(x+T) = f(x) $ 恒成立，则称 $ f(x) $ 为周期函数，满足条件的最小整数 $ T $ 为函数的（最小正）周期。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/math/function-definition/" rel="next" title="函数的定义">
+                <i class="fa fa-chevron-left"></i> 函数的定义
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/articles/ops/gitlab-install/" rel="prev" title="Gitlab 使用指南 - 安装篇">
+                Gitlab 使用指南 - 安装篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-real.jpg" alt="liuwei">
+            
+              <p class="site-author-name" itemprop="name">liuwei</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单调性"><span class="nav-number">1.</span> <span class="nav-text">单调性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有界性"><span class="nav-number">2.</span> <span class="nav-text">有界性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇偶性"><span class="nav-number">3.</span> <span class="nav-text">奇偶性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#周期性"><span class="nav-number">4.</span> <span class="nav-text">周期性</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.miitbeian.gov.cn" rel="noopener" target="_blank">赣ICP备19001643号-1 </a>&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuwei</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

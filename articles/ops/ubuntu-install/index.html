@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'XAIRGT0JPD',
+      apiKey: '493261f696cc63799e1a0af4f39ba161',
+      indexName: 'liuweigl.github.io',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入主题...","hits_empty":"对不起，没有相关文章...","hits_stats":"${hits} 条结果，耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="下载 ubuntu 镜像  官方产品中心：https://www.ubuntu.com/download  在产品中心有很多类型的镜像，其中 Desktop 是桌面版，就像我们日常用的 windows10 一样是带用户界面的；Server 是服务器版本，就是黑窗口模式的，要操作的话使用命令；然后还有 loT 物联网版本等等，本人没有使用过就不过多介绍了。 在这篇文章中我将会以 Serve">
+<meta name="keywords" content="运维,Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows10 安装 ubuntu-18.04.2">
+<meta property="og:url" content="https://liuweigl.github.io/articles/ops/ubuntu-install/index.html">
+<meta property="og:site_name" content="刘炜的博客">
+<meta property="og:description" content="下载 ubuntu 镜像  官方产品中心：https://www.ubuntu.com/download  在产品中心有很多类型的镜像，其中 Desktop 是桌面版，就像我们日常用的 windows10 一样是带用户界面的；Server 是服务器版本，就是黑窗口模式的，要操作的话使用命令；然后还有 loT 物联网版本等等，本人没有使用过就不过多介绍了。 在这篇文章中我将会以 Serve">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/11353298-39ebc800b9e09d53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/11353298-932ca095b59165f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-74485dfb0f53e139.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-8f95dab76b8b5c3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-75fcbfd428dab361.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-ba5d363f114da043.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-0608edf4fc517e9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-fb56ec495791157a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-aeddfb68608a72e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-6546ed92fc2f43e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-684a978680b90abe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-fdce39e72bfbe485.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-e0926579ece3bb3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-03a2dab0673d0eaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-28T09:50:31.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows10 安装 ubuntu-18.04.2">
+<meta name="twitter:description" content="下载 ubuntu 镜像  官方产品中心：https://www.ubuntu.com/download  在产品中心有很多类型的镜像，其中 Desktop 是桌面版，就像我们日常用的 windows10 一样是带用户界面的；Server 是服务器版本，就是黑窗口模式的，要操作的话使用命令；然后还有 loT 物联网版本等等，本人没有使用过就不过多介绍了。 在这篇文章中我将会以 Serve">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/11353298-39ebc800b9e09d53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="canonical" href="https://liuweigl.github.io/articles/ops/ubuntu-install/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Windows10 安装 ubuntu-18.04.2 | 刘炜的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘炜的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuweigl.github.io/articles/ops/ubuntu-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar-real.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘炜的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Windows10 安装 ubuntu-18.04.2
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 17:34:26 / 修改时间：17:50:31" itemprop="dateCreated datePublished" datetime="2019-03-28T17:34:26+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="下载-ubuntu-镜像">下载 ubuntu 镜像</h1>
+<blockquote>
+<p>官方产品中心：<a href="https://www.ubuntu.com/download" class="uri" target="_blank" rel="noopener">https://www.ubuntu.com/download</a></p>
+</blockquote>
+<p>在产品中心有很多类型的镜像，其中 <code>Desktop</code> 是桌面版，就像我们日常用的 <code>windows10</code> 一样是带用户界面的；<code>Server</code> 是服务器版本，就是黑窗口模式的，要操作的话使用命令；然后还有 <code>loT</code> 物联网版本等等，本人没有使用过就不过多介绍了。</p>
+<p>在这篇文章中我将会以 <code>Server</code> 版本进行安装，谁叫我是一只 🐒。</p>
+<p>下载链接：<a href="http://mirrors.ustc.edu.cn/ubuntu-releases/18.04.2/ubuntu-18.04.2-live-server-amd64.iso" class="uri" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/ubuntu-releases/18.04.2/ubuntu-18.04.2-live-server-amd64.iso</a></p>
+<blockquote>
+<p>下载慢的话可以参考 <a href="https://www.jianshu.com/p/4617d6050ff6" target="_blank" rel="noopener">下载工具</a> 文章中的方法使用迅雷下载。</p>
+</blockquote>
+<h1 id="开启-hyper-v">开启 Hyper-V</h1>
+<blockquote>
+<p>官方教程：<a href="https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v" class="uri" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v</a></p>
+</blockquote>
+<h2 id="方法一">方法一</h2>
+<ol type="1">
+<li><code>win + q</code>：搜索 <code>Hyper</code> 一般会出来 <code>启用或关闭 windows 功能</code>，如果没有的话就打开 <code>控制面板</code> 选择 <code>程序和功能</code>，在左侧也有该选项。</li>
+<li>点击进入 <code>启用或关闭 windows 功能</code>面板，在列表中选中 <code>Hyper-V</code> 选项，系统设置完之后会提示重启。</li>
+<li>重启电脑。</li>
+</ol>
+<h2 id="方法二">方法二</h2>
+<ol type="1">
+<li>以管理员身份打开 PowerShell 或 CMD 会话。</li>
+<li>键入下列命令：</li>
+</ol>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DISM <span class="string">/Online</span> <span class="string">/Enable-Feature</span> <span class="string">/All</span> <span class="string">/FeatureName</span><span class="function">:Microsoft-Hyper-V</span></span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>重启电脑。</li>
+</ol>
+<h1 id="创建虚拟机">创建虚拟机</h1>
+<blockquote>
+<p>官方教程：<a href="https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine" class="uri" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine</a></p>
+</blockquote>
+<ul>
+<li><a href="https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine#windows-10-fall-creators-update" target="_blank" rel="noopener">Windows 10 Fall Creators Update 和更高版本</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine#windows-10-creators-update" target="_blank" rel="noopener">Windows 10 创意者更新</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine#before-windows-10-creators-update" target="_blank" rel="noopener">Windows 10 周年更新和更早版本</a></li>
+</ul>
+<p>接下来我讲以 <code>Windows 10 Fall Creators Update</code> 版本进行安装，基本也是按照官方的来；为了让大家少点下鼠标，我就把教程拷贝过来了。</p>
+<h2 id="windows-10-fall-creators-update">Windows 10 Fall Creators Update</h2>
+<p>在 Fall Creators Update 中，“快速创建”进行了扩展，以包括可以独立从 Hyper-V 管理器中启动的虚拟机库。 若要在 Fall Creators Update 中创建新虚拟机，请执行以下操作：</p>
+<ol type="1">
+<li>从“开始”菜单中打开“Hyper-V Quick Create”。 <img src="http://upload-images.jianshu.io/upload_images/11353298-39ebc800b9e09d53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></li>
+</ol>
+<blockquote>
+<p>提示：如果启用 <code>Hyper-V</code> 之后在 <code>win + q</code> 快速搜索没有出现 <code>Hyper-V</code> 程序的话，可以按 <code>win</code> 打开 <code>开始菜单</code>，然后 <code>windows 管理工具</code> 菜单中会有。</p>
+</blockquote>
+<ol start="2" type="1">
+<li>选择一个操作系统或者使用本地安装源选择你自己的操作系统。 <img src="http://upload-images.jianshu.io/upload_images/11353298-932ca095b59165f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></li>
+</ol>
+<blockquote>
+<p>基于国内的网络原因，打开 <code>Hyper-V 快速创建</code> 之后可能需要等程序联网去请求操作系统列表。</p>
+</blockquote>
+<ol start="3" type="1">
+<li>选择 <strong><em>本地安装源</em></strong> 。</li>
+<li>选择 <strong><em>更改安装源</em></strong> 。</li>
+<li>取消选择 “此虚拟机将运行 Windows（启用 Windows Secure Boot）” 选项。</li>
+<li>展开 <strong><em>更多选项</em></strong> ，把名称修改为 <code>ubuntu</code> 或者选择默认。</li>
+<li>选择 “创建虚拟机” 。</li>
+<li>安装成功之后如图：</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-74485dfb0f53e139.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<h1 id="虚拟机基本设置">虚拟机基本设置</h1>
+<ol type="1">
+<li>点击 <strong><em>编辑设置</em></strong> 。</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-8f95dab76b8b5c3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<ol start="2" type="1">
+<li>根据自己的需求分别设置 <code>内存</code> 、<code>处理器</code> 的配置（我的在上面图中）；其他的使用默认的就好了，主要是我了解的也不深 😇 。</li>
+<li>点击 <strong><em>确定</em></strong> 返回，点击 <strong><em>连接</em></strong> ，最后 <strong><em>启动</em></strong> ，大功告成 。</li>
+</ol>
+<h1 id="网络设置">网络设置</h1>
+<blockquote>
+<p>虚拟机网络模式：<code>桥接</code> 、<code>NAT</code> 、<code>Host-Only</code>，详细资料请参阅：https://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html</p>
+</blockquote>
+<p>打开 <code>Hyper-V 管理器</code> 在左侧栏中可以看到我们刚刚创建的虚拟机组，右键菜单中选择 <code>虚拟交换机管理器</code> 进入交换机设置界面。、 <img src="https://upload-images.jianshu.io/upload_images/11353298-75fcbfd428dab361.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-ba5d363f114da043.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>可以看到 <code>新建虚拟网络交换机</code> 设置中有三个选项：</p>
+<ol type="1">
+<li>外部：对应 <code>桥接</code> 模式，即 <code>本地物理网卡</code> 与 <code>虚拟网卡</code> 进行桥接（<span class="math inline">\(\color{red}{好比两个路由器使用桥接模式进行扩展一样}\)</span>），连接在 <code>虚拟交换机</code> 中的设备跟现实中的设备共用同一网段。</li>
+<li>内部：对应 <code>NAT</code> （网络地址转换）模式，即虚拟机使用主机的网络来访问外界网络，但是外部的网络是无法直接访问的，需要 <code>ssh</code> 到 主机再跳转过去。</li>
+<li>专用：对应 <code>Host-Only</code> 模式，虚拟机只能访问主机，无法访问外部网络。</li>
+</ol>
+<p>接着往下设置，我们选中 <code>外部</code>，然后点击 <code>创建虚拟交换机</code>： <img src="https://upload-images.jianshu.io/upload_images/11353298-0608edf4fc517e9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>接下来设置我们之前创建的 'ubuntu 虚拟机'： <img src="https://upload-images.jianshu.io/upload_images/11353298-fb56ec495791157a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"> <img src="https://upload-images.jianshu.io/upload_images/11353298-aeddfb68608a72e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>到此我们的网络设置就结束了，那为什么要设置呢？因为 <code>默认交换机</code> 使用的是 <code>NAT</code> 模式，我们无法使用 <code>xShell</code> 等工具进行远程。</p>
+<h1 id="ubuntu-配置">ubuntu 配置</h1>
+<p>只挑了一部分，看图说话：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-6546ed92fc2f43e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-684a978680b90abe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-fdce39e72bfbe485.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-e0926579ece3bb3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-03a2dab0673d0eaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<blockquote>
+<p>第二张图没截好，这里解释一下 <code>server's name</code>：一般我们 ssh 到一台 <code>Linux</code> 服务器的话，命令窗口都会有当前登录信息：<code>username@host</code>； 图中的 <code>server's name</code> 其实就是 <code>@</code> 后面的 <code>host</code>。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/ops/gitlab-pages/" rel="next" title="Gitlab 使用指南 - Pages 篇">
+                <i class="fa fa-chevron-left"></i> Gitlab 使用指南 - Pages 篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/articles/ops/utils-download/" rel="prev" title="windows 下载工具">
+                windows 下载工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-real.jpg" alt="liuwei">
+            
+              <p class="site-author-name" itemprop="name">liuwei</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载-ubuntu-镜像"><span class="nav-number">1.</span> <span class="nav-text">下载 ubuntu 镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启-hyper-v"><span class="nav-number">2.</span> <span class="nav-text">开启 Hyper-V</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一"><span class="nav-number">2.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">2.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建虚拟机"><span class="nav-number">3.</span> <span class="nav-text">创建虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-10-fall-creators-update"><span class="nav-number">3.1.</span> <span class="nav-text">Windows 10 Fall Creators Update</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机基本设置"><span class="nav-number">4.</span> <span class="nav-text">虚拟机基本设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络设置"><span class="nav-number">5.</span> <span class="nav-text">网络设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ubuntu-配置"><span class="nav-number">6.</span> <span class="nav-text">ubuntu 配置</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.miitbeian.gov.cn" rel="noopener" target="_blank">赣ICP备19001643号-1 </a>&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuwei</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

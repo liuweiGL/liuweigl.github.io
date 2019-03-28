@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'XAIRGT0JPD',
+      apiKey: '493261f696cc63799e1a0af4f39ba161',
+      indexName: 'liuweigl.github.io',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入主题...","hits_empty":"对不起，没有相关文章...","hits_stats":"${hits} 条结果，耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="开发流程  GitLab Continuous Integration (GitLab CI/CD)  CI: Continuous Integration：持续集成。 CD: Coninuous delivery and deployment：持续交付和部署。  Gitlab CI/CD 是以可持续方法论进行软件开发的内建工具（continuous integration servi">
+<meta name="keywords" content="运维,gitlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gitlab 使用指南 - CI 篇">
+<meta property="og:url" content="https://liuweigl.github.io/articles/ops/gitlab-ci/index.html">
+<meta property="og:site_name" content="刘炜的博客">
+<meta property="og:description" content="开发流程  GitLab Continuous Integration (GitLab CI/CD)  CI: Continuous Integration：持续集成。 CD: Coninuous delivery and deployment：持续交付和部署。  Gitlab CI/CD 是以可持续方法论进行软件开发的内建工具（continuous integration servi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-0acd8e91712f1c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-e900a4c97a1003cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-2246a0cf9fc82160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11353298-8e03c177ca9db9f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-28T09:50:18.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gitlab 使用指南 - CI 篇">
+<meta name="twitter:description" content="开发流程  GitLab Continuous Integration (GitLab CI/CD)  CI: Continuous Integration：持续集成。 CD: Coninuous delivery and deployment：持续交付和部署。  Gitlab CI/CD 是以可持续方法论进行软件开发的内建工具（continuous integration servi">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/11353298-0acd8e91712f1c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="canonical" href="https://liuweigl.github.io/articles/ops/gitlab-ci/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Gitlab 使用指南 - CI 篇 | 刘炜的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘炜的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuweigl.github.io/articles/ops/gitlab-ci/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar-real.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘炜的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Gitlab 使用指南 - CI 篇
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 17:32:25 / 修改时间：17:50:18" itemprop="dateCreated datePublished" datetime="2019-03-28T17:32:25+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="开发流程">开发流程</h1>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-0acd8e91712f1c2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<h1 id="gitlab-continuous-integration-gitlab-cicd">GitLab Continuous Integration (GitLab CI/CD)</h1>
+<blockquote>
+<p>CI: Continuous Integration：持续集成。 CD: Coninuous delivery and deployment：持续交付和部署。</p>
+</blockquote>
+<p>Gitlab CI/CD 是以可持续方法论进行软件开发的内建工具（<a href="https://about.gitlab.com/gitlab-ci/" target="_blank" rel="noopener">continuous integration service</a> ）。</p>
+<hr>
+<p>在使用 Gitlab CI 之前，我们需要先了解几个概念：</p>
+<h2 id="stage">Stage</h2>
+<p>阶段：通俗的讲就是步骤（把一件事分解成多个步骤来完成）。 从最上面的图中可以看到在 <code>CI</code> 中可能会有：<code>Build</code>、<code>Unit Test</code> 、<code>Integration Tests</code> 等多个阶段。</p>
+<h2 id="job">Job</h2>
+<p>任务：就是我们在每个阶段具体要做的事情，而一个阶段可能会有多个任务。</p>
+<h2 id="pipelines">Pipelines</h2>
+<p>一条流水线 （ <code>pipeline</code>）就是 <strong>一组</strong> 在各个阶段执行的任务。在同一阶段的多个任务是可以并行的（如果 <code>Runner</code> 足够多的话），当全部的任务都执行成功之后流水线将会进入下一个阶段。反之，如果其中有一个任务失败，流水线的下一个阶段将不再执行。</p>
+<h2 id="runners">Runners</h2>
+<p>在 Gitlab CI 中，<code>Runner</code> 负责运行定义在 <code>.gitlab-ci.yml</code> 中的代码。<code>Runner</code> 为三种：<code>Shared Runners</code>、<code>Group Runners</code>、<code>Specific Runners</code>，分别表示全局共用 Runner、组共用 Runner、单个项目指定的 Runner。</p>
+<h2 id="gitlab-ci.yml">.gitlab-ci.yml</h2>
+<p>Gitlab CI 的配置文件，该文件声明了流水线的结构和顺序，以任务为最小单元。</p>
+<p>文件中允许定义的元素：</p>
+<ol type="1">
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#image" target="_blank" rel="noopener"><code>image</code></a>：docker 镜像，当 Gitlab-Runner 的类型为 docker 时，会根据该属性指定的镜像为脚本执行容器。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#services" target="_blank" rel="noopener"><code>services</code></a>: 指定另一个 docker 镜像，主要用于提供服务层的能力，比如 <code>mysql</code> 。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#before_script-and-after_script" target="_blank" rel="noopener"><code>before_script</code></a>：任务执行前的钩子事件，比如一个 node 项目，我们可以在这里安装依赖。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#before_script-and-after_script" target="_blank" rel="noopener"><code>after_script</code></a>：任务执行后的钩子事件，当所有的任务都执行完毕之后被调用，不管任务是否执行成功。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#stages" target="_blank" rel="noopener"><code>stages</code></a>：定义流水线中的阶段，默认的为 <code>build</code> 、<code>test</code>、<code>deploy</code>。如果我们要在任务中指定其他的 <code>stage</code>，则需要使用该属性先申明。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#cache" target="_blank" rel="noopener"><code>cache</code></a>：需要缓存的文件，比如 node 项目可以把 node_modules 缓存起来。提示：可以定义在 <code>.gitlab-ci.yml</code> 顶级表示项目级别的，也可以申明在单个任务中。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#variables" target="_blank" rel="noopener"><code>variables</code></a>：变量，同样可以在顶级或者单个任务中申明。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#pages" target="_blank" rel="noopener"><code>pages</code></a>：内置的一个任务，用于上传任务执行的结果到 <a href="https://docs.gitlab.com/ce/user/project/pages/index.html" target="_blank" rel="noopener">Gitlab Pages</a>。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#include" target="_blank" rel="noopener"><code>include</code></a>：合并其他的 <code>.gitlab-ci.yml</code> 文件配置。</li>
+<li>在单个任务中申明的元素：
+<ol type="1">
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#script" target="_blank" rel="noopener"><code>script</code></a>：需要执行的脚本。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#stage" target="_blank" rel="noopener"><code>stage</code></a>：标识该任务所属的阶段。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#tags" target="_blank" rel="noopener"><code>tags</code></a>：为任务打上标签，用于选择特定的 <code>Runner</code>。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#onlyexcept-basic" target="_blank" rel="noopener"><code>only</code></a>：用于表明何时<strong>创建</strong>该任务。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#onlyexcept-basic" target="_blank" rel="noopener"><code>except</code></a>：用于表明何时<strong>不创建</strong>该任务。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#when" target="_blank" rel="noopener"><code>when</code></a>：用于表明何时<strong>运行</strong>该任务。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#allow_failure" target="_blank" rel="noopener"><code>allow_failure</code></a>：允许失败，该任务失败时不会影响整个流水线的结果。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#artifacts" target="_blank" rel="noopener"><code>artifacts</code></a>：任务执行的结果，比如执行 <code>打包任务</code> 后的产出资源。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#dependencies" target="_blank" rel="noopener"><code>dependencies</code></a>：依赖的其他任务。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#retry" target="_blank" rel="noopener"><code>retry</code></a>：当任务失败时最多重试的次数。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#coverage" target="_blank" rel="noopener"><code>coverage</code></a>：指定如何从任务结果中提取代码覆盖率。</li>
+<li><a href="https://docs.gitlab.com/ce/ci/yaml/README.html#parallel" target="_blank" rel="noopener"><code>parallel</code></a>：允许并行的任务实例个数。</li>
+</ol></li>
+</ol>
+<blockquote>
+<p>请注意版本问题，每个属性对版本的要求并不一致，具体的可以点击属性查看官方文档。</p>
+</blockquote>
+<h1 id="使用-gitlab-ci">使用 Gitlab CI</h1>
+<p>使用 Gitlab CI 服务的两种方式： 1. <a href="https://docs.gitlab.com/ce/topics/autodevops/index.html" target="_blank" rel="noopener">Auto DevOps</a> 2. 手动配置 CI/CD</p>
+<h2 id="auto-devops"><a href="https://docs.gitlab.com/ce/topics/autodevops/index.html" target="_blank" rel="noopener">Auto DevOps</a></h2>
+<p>Auto DevOps 是 Gitlab 11.0 推出的新功能，它提供了预定义的 CI/CD 配置，允许我们自动检测、构建、测试、发布以及监控应用。</p>
+<p>暂未使用，待补充。</p>
+<h2 id="手动配置-cicd">手动配置 CI/CD</h2>
+<p>手动配置主要就 2 个步骤，配置 <code>.gitlab-ci.yml</code> 文件，添加 Gitlab Runner 运行该文件。</p>
+<hr>
+<p>下面，我们看看如何配置 Gitlab Runner：</p>
+<h2 id="gitlab-runner">Gitlab Runner</h2>
+<p>Gitlab Runner 是一个开源项目，用来运行 <code>.gitlab-ci.yml</code> 中定义的任务并把结果返给 Gitlab。</p>
+<h3 id="安装">安装</h3>
+<blockquote>
+<p>官方文档：https://docs.gitlab.com/runner/install/linux-repository.html</p>
+</blockquote>
+<p>首先，添加离线仓库：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L http<span class="variable">s:</span>//packages.gitlab.<span class="keyword">com</span>/install/repositories/runner/gitlab-runner/script.<span class="keyword">deb</span>.<span class="keyword">sh</span> | sudo bash</span><br></pre></td></tr></table></figure>
+<p>然后，安装最新版本：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install gitlab-runner</span><br></pre></td></tr></table></figure>
+<h3 id="注册">注册</h3>
+<blockquote>
+<p>官方文档：https://docs.gitlab.com/runner/register/index.html</p>
+</blockquote>
+<p>首先，我们进入要配置 Runner 的 Gitlab 仓库，在 <code>Settings -&gt; CI / CD</code> 页面展开 <code>Runners</code> 配置面板可以看到已经分配的 Runner 以及注册 Runner 需要的参数： <img src="https://upload-images.jianshu.io/upload_images/11353298-e900a4c97a1003cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>然后，我们使用 Gitlab-Runner 命名开始注册：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-runner <span class="keyword">register</span></span><br></pre></td></tr></table></figure>
+<p>执行完会该命令，终端会有交互，要求我们输入以下参数：</p>
+<ol type="1">
+<li>gitlab-ci coordinator url ：gitlab 服务地址</li>
+<li>gitlab-ci token：上图中的 token</li>
+<li>description：描述信息</li>
+<li>tags：标签，对应 <code>.gitlab-ci.yml</code> 任务中配置的 tags，只有 tags 匹配的任务才会被该 Runner 执行。</li>
+<li>executor：<a href="https://docs.gitlab.com/runner/executors/README.html" target="_blank" rel="noopener">执行器</a>，即任务脚本执行的环境</li>
+</ol>
+<blockquote>
+<p>如果使用 docker 执行，则需要事先安装 <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Docker</a> 环境。</p>
+</blockquote>
+<p>参数填写完毕之后，一个 Runner 便被注册成功了：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-2246a0cf9fc82160.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>我们回到 gitlab 仓库页面，然后刷新便可以看到 <code>_fzBq4PN</code> 这个 Runner 已经被注册到该项目：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11353298-8e03c177ca9db9f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<blockquote>
+<p>我们可以点击 <code>编辑图标</code> 对该 Runner 进行修改。我比较喜欢把 <code>Run untagged jobs</code> 选项勾上，这样就不用每个任务都添加对应的 tags 了（因为现在涉及到的都是一些简单的流程）。</p>
+</blockquote>
+<h1 id="总结">总结</h1>
+<p>首先，CI/CD 是一种软件开发流程，Gitlab CI/CD 是 Gitlab 为实现该流程而提供的一个内置工具（服务）。 其次，我们有 <a href="https://docs.gitlab.com/ce/topics/autodevops/index.html" target="_blank" rel="noopener">Auto DevOps</a> 与 <code>手动配置</code> 两种方式使用，本文讲解的主要是 <code>手动配置</code> 方式。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/gitlab/" rel="tag"># gitlab</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/ops/gitlab-install/" rel="next" title="Gitlab 使用指南 - 安装篇">
+                <i class="fa fa-chevron-left"></i> Gitlab 使用指南 - 安装篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/articles/ops/gitlab-pages/" rel="prev" title="Gitlab 使用指南 - Pages 篇">
+                Gitlab 使用指南 - Pages 篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-real.jpg" alt="liuwei">
+            
+              <p class="site-author-name" itemprop="name">liuwei</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发流程"><span class="nav-number">1.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitlab-continuous-integration-gitlab-cicd"><span class="nav-number">2.</span> <span class="nav-text">GitLab Continuous Integration (GitLab CI/CD)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stage"><span class="nav-number">2.1.</span> <span class="nav-text">Stage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#job"><span class="nav-number">2.2.</span> <span class="nav-text">Job</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipelines"><span class="nav-number">2.3.</span> <span class="nav-text">Pipelines</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#runners"><span class="nav-number">2.4.</span> <span class="nav-text">Runners</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitlab-ci.yml"><span class="nav-number">2.5.</span> <span class="nav-text">.gitlab-ci.yml</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-gitlab-ci"><span class="nav-number">3.</span> <span class="nav-text">使用 Gitlab CI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#auto-devops"><span class="nav-number">3.1.</span> <span class="nav-text">Auto DevOps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动配置-cicd"><span class="nav-number">3.2.</span> <span class="nav-text">手动配置 CI/CD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitlab-runner"><span class="nav-number">3.3.</span> <span class="nav-text">Gitlab Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">3.3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册"><span class="nav-number">3.3.2.</span> <span class="nav-text">注册</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.miitbeian.gov.cn" rel="noopener" target="_blank">赣ICP备19001643号-1 </a>&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuwei</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
