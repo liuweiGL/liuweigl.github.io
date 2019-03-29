@@ -4,9 +4,9 @@
 
 # Site
 title: 刘炜的博客
-subtitle:
-description:
-keywords:
+subtitle: 嘟嘟
+description: 自强不息，学无止境。
+keywords: 技术，学习，前端，Vue，后端，运维，数学，LaTeX，markdown
 author: liuwei
 language: zh-CN
 timezone:
@@ -40,7 +40,7 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: true
   tab_replace: true
   
@@ -54,7 +54,7 @@ index_generator:
   order_by: -date
   
 # Category & Tag
-default_category: 前端
+default_category:
 category_map:
 tag_map:
 
