@@ -1,11 +1,33 @@
 // Custom styles.
+
+// code
 code {
   border: 1px solid #999;
+}
+
+// link
+a[target='_blank'] {
+  color: #3194d0;
+  border-bottom: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// list
+ol {
+  padding-inline-start: 1em;
 }
 
 // custom logo
 .custom-logo-image {
   width: 48px;
+  filter: invert(0.8);
+}
+
+// mermaid
+.mermaid {
+  background: transparent;
 }
 
 // markdown 自定义容器
@@ -38,4 +60,11 @@ code {
   background-color: #ffe6e6;
   color: #4d0000;
   @extend .custom-block;
+}
+
+// back to top
+.back-to-top {
+  .fa-arrow-up::before {
+    content: '回到顶部';
+  }
 }

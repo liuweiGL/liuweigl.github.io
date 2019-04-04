@@ -1,0 +1,73 @@
+```
+graph LR
+
+vm["new ViewModel(options)"]
+
+compiler["new Compiler(vm,options)"]
+
+stepElement["compiler.setupElement()"]
+returnEL["return document.querySelector('#app')"]
+
+setupObserver["compiler.setupObserver()"]
+observerOn["compiler.observer.on('get、set、mutate')"]
+check["check (key)"]
+check-createBinding["compiler.createBinding(key)"]
+
+vm-bind["create binding for vm property"]
+vm-createBinding["for (key in vm) compiler.createBinding(key)"]
+vm-define["compiler.define(key, binding)"]
+vm-defineProperty["Object.defineProperty(vm,key,{get/set:{}})"]
+vm-observes[Observe root values]
+observer-init["Observer.observe(binding.value, binding.key, compiler.observer)"]
+vm-computed["DepsParser.parse(computed)"]
+
+compile-el["compiler.compile(el, true)"]
+
+compile-node["compiler.compileNode(node)"]
+compile-directive["Directive.parse(attr.name, exp, this, node): 解析属性中的指令"]
+
+compile-text-node["compiler.compileTextNode(node)"]
+compile-template["TextParser.parse(node.nodeValue)：解析模板语法"]
+compile-token["Directive.parse(dirname, token.key, this, el)"]
+
+compile-bind-directive["compiler.bindDirective(directive)"]
+directive-init["directive.bind/refresh/update(value)"]
+parse-done["Parse done"]
+compile-child["Compile children"]
+
+vm --> compiler
+
+compiler --> stepElement
+stepElement --> returnEL
+
+compiler -->setupObserver
+setupObserver --> observerOn
+observerOn --> check
+check --> check-createBinding
+
+compiler --> vm-bind
+vm-bind --> vm-createBinding
+vm-createBinding --> vm-define
+vm-define --> vm-defineProperty
+
+compiler --> vm-observes
+vm-observes --> observer-init
+
+compiler --> vm-computed
+
+compiler --> compile-el
+
+compile-el --> compile-node
+compile-node --> compile-directive
+compile-directive --> compile-bind-directive
+
+compile-el --> compile-text-node
+compile-text-node --> compile-template
+compile-template --> compile-token
+compile-token --> compile-bind-directive
+
+compile-bind-directive --> directive-init
+directive-init --> parse-done
+parse-done --> compile-child
+compile-child -->|recursive| compile-el
+```

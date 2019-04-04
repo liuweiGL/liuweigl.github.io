@@ -35,7 +35,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -88,3 +88,6 @@ algolia:
   apiKey: '493261f696cc63799e1a0af4f39ba161'
   indexName: 'liuweigl.github.io'
   chunkSize: 5000
+
+# https://github.com/chenzhutian/hexo-all-minifier
+all_minifier: true
