@@ -1,7 +1,7 @@
 ---
 title: 免费版 Xshell、Xftp
 tags:
-  - 运维
+  - Windows
   - 工具
 date: 2019-03-28 17:51:09
 ---

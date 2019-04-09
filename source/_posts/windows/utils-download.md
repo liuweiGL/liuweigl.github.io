@@ -1,7 +1,7 @@
 ---
 title: windows 下载工具
 tags:
-  - 运维
+  - Windows
   - 工具
 date: 2019-03-28 17:48:41
 ---

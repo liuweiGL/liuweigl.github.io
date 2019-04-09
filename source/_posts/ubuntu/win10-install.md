@@ -1,7 +1,6 @@
 ---
 title: Windows10 安装 ubuntu-18.04.2
 tags:
-  - 运维
   - Ubuntu
 date: 2019-03-28 17:34:26
 ---
