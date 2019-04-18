@@ -2,7 +2,7 @@
 title: win10 下 ctrl space 组合键被输入法占用
 date: 2019-04-08 17:20:48
 tags:
- - Windows
+  - Windows
 ---
 
 ## 问题描述
